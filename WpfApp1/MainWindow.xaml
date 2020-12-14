@@ -1,0 +1,41 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="593,73,0,0" TextWrapping="Wrap" Text="abcde" VerticalAlignment="Top" AllowDrop="True">
+            <i:Interaction.Behaviors>
+                <local:DragStartBehavior/>
+            </i:Interaction.Behaviors>
+        </TextBlock>
+        <TreeView Margin="557,207,24,14" ItemsSource="{Binding Choices}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="local:ChoiceExpression" ItemsSource="{Binding Childs}">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Value}" VerticalAlignment="Top" AllowDrop="True">
+                        <i:Interaction.Behaviors>
+                            <local:DragStartBehavior/>
+                        </i:Interaction.Behaviors>
+                    </TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <DataGrid x:Name="DataGrid1" ItemsSource="{Binding TableDatas}"  HorizontalAlignment="Left" Height="310" Margin="36,46,0,0" VerticalAlignment="Top" Width="481" AllowDrop="True" SelectionUnit="Cell">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Number}" Header="No." Width="*"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Value}" Header="Value" Width="*"/>
+            </DataGrid.Columns>
+
+            <i:Interaction.Behaviors>
+                <local:DropBehavior/>
+            </i:Interaction.Behaviors>
+        </DataGrid>
+
+    </Grid>
+</Window>
